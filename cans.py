@@ -54,19 +54,19 @@ class CaNS(Case):
     self.dzc = np.max(data[:, 3])
     self.dzw = np.min(data[:, 3])
 
-    # data = np.loadtxt(glob.glob(dir + "results/stats-single-point-chan-?????.out")[0], skiprows=0)
-    # self.yc = data[:, 0]
-    # self.yf = data[:, 1]
-    # self.u  = data[:, 2]
-    # self.v  = data[:, 3]
-    # self.w  = data[:, 4]
-    # self.uu = data[:, 5]
-    # self.vv = data[:, 6]
-    # self.ww = data[:, 7]
-    # self.uw = data[:, 8]
+    data = np.loadtxt(glob.glob(dir + "results/stats-single-point-chan-?????.out")[0], skiprows=0)
+    self.yc = data[:, 0]
+    self.yf = data[:, 1]
+    self.u  = data[:, 2]
+    self.v  = data[:, 3]
+    self.w  = data[:, 4]
+    self.uu = data[:, 5]
+    self.vv = data[:, 6]
+    self.ww = data[:, 7]
+    self.uw = data[:, 8]
 
   def error(self, ref):
-    err = np.zeros(6)
+    err = np.zeros(5)
     utau = 2.0*ref.retau/ref.reb
     # velocity
     les = self.u
