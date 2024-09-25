@@ -3,9 +3,11 @@ from matplotlib import pyplot as plt
 
 class Case:
   def __init__(self, dir):
+    self.dir       = dir
     self.reb       = None
     self.retau     = None
     self.cf        = None
+    self.ub        = None
     self.lx        = None
     self.ly        = None
     self.lz        = None
@@ -20,9 +22,7 @@ class Case:
     self.lwm       = None
     self.hwm       = None
     self.tbeg      = None
-    self.end       = None
-    self.yc        = None
-    self.yf        = None
+    self.tend      = None
     self.u         = None
     self.v         = None
     self.w         = None

@@ -28,6 +28,7 @@ folders = [ 'CHA_RETAU5200_H0.1_SMAG_AR1_NX128_NY48_NZ32/',
             'CHA_RETAU5200_H0.1_DSMAG_AR1_NX1536_NY576_NZ256/',
             'CHA_SMALL_RETAU5200_H0.1_DSMAG_AR1_NX1024_NY384_NZ512/',
             'CHA_SMALL_RETAU5200_H0.1_DSMAG_AR1_NX2048_NY768_NZ1024/',
+            'CHA_SMALL_RETAU5200_H0.1_DSMAG_AR1_NX3072_NY1152_NZ1536/',
             'CHA_RETAU5200_H0.1_SMAG_AR2_NX64_NY48_NZ32/',
             'CHA_RETAU5200_H0.1_SMAG_AR2_NX96_NY72_NZ48/',
             'CHA_RETAU5200_H0.1_SMAG_AR2_NX128_NY96_NZ64/',
@@ -56,13 +57,15 @@ folders = [ 'CHA_RETAU5200_H0.1_SMAG_AR1_NX128_NY48_NZ32/',
             'CHA_SMALL_RETAU5200_H0.1_DSMAG_AR2_NX1536_NY1152_NZ1536/']
 
 line = textwrap.dedent("""
-              {reb_dns} & {retau_dns:<14.1f} & {cf_dns:<12.5f} & ${nx:<4} \\times {ny:<4} \\times {nz:<4}$ & {dx:<6.3f} & {dy:<6.3f} & {dzc:<6.3f} & {dzw:<6.4f} & {sgs:<6} & {retau:<9.1f} & {cf:.5f} & {err:>6.2f}\\% & {ett:.1f} \\\\
+              ${nx:<4} \\times {ny:<4} \\times {nz:<4}$ & {dx:<6.3f} & {dy:<6.3f} & {dzc:<6.3f} & {dzw:<6.4f} & {ar:<2.1f} & {sgs:<6} & {retau:<9.1f} & ${cf:.5f} \pm {uncertainty:.2f}\\%$ & {err:>6.2f}\\% & {ett:.1f} \\\\
             """).strip()
 
 with open('tab_params.txt', 'w') as f:
   for i in range(len(folders)):
-    les = CaNS(folders[i])
     dns = Moser('CHA_RETAU5200/')
+    les = CaNS(folders[i])
+    les.read_stats()
+    uncertainty = les.uncertainty()
     err = (les.cf-dns.cf)/dns.cf
     ett = (les.tend-les.tbeg)*(2.0*dns.retau/dns.reb)
     if les.sgs == 'smag':
@@ -70,9 +73,6 @@ with open('tab_params.txt', 'w') as f:
     elif les.sgs == 'dsmag':
       sgs = 'DSM'
     f.write(line.format(
-      reb_dns=int(dns.reb),
-      retau_dns=dns.retau,
-      cf_dns=dns.cf,
       nx=les.nx,
       ny=les.ny,
       nz=les.nz,
@@ -80,9 +80,11 @@ with open('tab_params.txt', 'w') as f:
       dy=les.dy,
       dzc=les.dzc,
       dzw=les.dzw,
+      ar=les.dx/les.dy,
       sgs=sgs,
       retau=les.retau,
       cf=les.cf,
+      uncertainty=uncertainty*100,
       err=err * 100,
       ett=ett
     ) + '\n') 
