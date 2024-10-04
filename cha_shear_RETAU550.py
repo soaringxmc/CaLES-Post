@@ -13,12 +13,13 @@ folders = [
 'CHA_RETAU550_NOSLIP_SMAG_AR2_NX576_NY384_NZ384/',
 ]
 dns = Moser('CHA_RETAU550/')
+retau = dns.retau
 utau = 2.0*dns.retau/dns.reb
 plt.plot(dns.yf, dns.uv/utau**2, label='DNS', color='black')
 for i in range(len(folders)):
   les = CaNS(folders[i])
   les.read_stats()
-  plt.plot(les.zf, les.uw/utau**2, label=f'$N_z={les.nz}$')
+  plt.plot(les.zf, les.uw/utau**2, label=f'$\Delta_z^+={les.dy*retau:.1f}$')
 
 plt.legend()
 plt.xlabel('$y/h$')

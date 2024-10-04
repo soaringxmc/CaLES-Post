@@ -57,13 +57,14 @@ folders = [ 'CHA_RETAU5200_H0.1_SMAG_AR1_NX128_NY48_NZ32/',
             'CHA_SMALL_RETAU5200_H0.1_DSMAG_AR2_NX1536_NY1152_NZ1536/']
 
 line = textwrap.dedent("""
-              ${nx:<4} \\times {ny:<4} \\times {nz:<4}$ & {dx:<6.3f} & {dy:<6.3f} & {dzc:<6.3f} & {dzw:<6.4f} & {ar:<2.1f} & {sgs:<6} & {retau:<9.1f} & ${cf:.5f} \pm {uncertainty:.2f}\\%$ & {err:>6.2f}\\% & {ett:.1f} \\\\
+              ${nx:<4} \\times {nz:<4} \\times {ny:<4}$ & {dx:<6.3f} & {dy:<6.3f} & {dzc:<6.3f} & {dzw:<6.4f} & {ar:<2.1f} & {sgs:<6} & {retau:<9.1f} & ${cf:.5f} \pm {uncertainty:.2f}\\%$ & {err:>6.2f}\\% & {ett:.1f} \\\\
             """).strip()
 
 with open('tab_params.txt', 'w') as f:
   for i in range(len(folders)):
     dns = Moser('CHA_RETAU5200/')
     les = CaNS(folders[i])
+    les.stats_input()
     les.read_stats()
     uncertainty = les.uncertainty()
     err = (les.cf-dns.cf)/dns.cf
@@ -74,8 +75,8 @@ with open('tab_params.txt', 'w') as f:
       sgs = 'DSM'
     f.write(line.format(
       nx=les.nx,
-      ny=les.ny,
       nz=les.nz,
+      ny=les.ny,
       dx=les.dx,
       dy=les.dy,
       dzc=les.dzc,

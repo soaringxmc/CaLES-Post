@@ -14,22 +14,18 @@ folders = [
 ]
 
 dns = Moser('CHA_RETAU550/')
-retau = dns.retau
-utau = 2.0*dns.retau/dns.reb
-plt.plot(dns.yf*retau, dns.u/utau, label='DNS', color='black')
+visc = 2.0/dns.reb
 for i in range(len(folders)):
   les = CaNS(folders[i])
   les.read_stats()
-  retau = les.retau
-  utau = 2.0*les.retau/les.reb
-  plt.plot(les.zc*retau, les.u/utau, label=f'$\Delta_z^+={les.dy*dns.retau:.1f}$')
+  plt.plot(les.zc, les.visct/visc, label=f'$\Delta_z^+={les.dy*dns.retau:.1f}$')
 
-plt.xscale('log')
 plt.legend()
-plt.xlabel('$y^*$')
-plt.ylabel('$U^*$')
-plt.xlim([1, 600])
-plt.ylim([0, 22])
+plt.xlabel('$y/h$')
+plt.ylabel(r'$\nu_t/\nu$')
+plt.xlim([0, 1])
+plt.ylim([0, 0.8])
+plt.yticks(np.arange(0, 0.81, 0.2))
 # plt.show()
-plt.savefig(f"cha_loglaw_RETAU550_NOSLIP_DSMAG_AR2.pdf", format='pdf', bbox_inches='tight')
+plt.savefig(f"cha_visct_RETAU550_NOSLIP_DSMAG_AR2.pdf", format='pdf', bbox_inches='tight')
 plt.close()

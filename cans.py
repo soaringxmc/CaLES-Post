@@ -11,6 +11,12 @@ class CaNS(Case):
     super().__init__(dir)
     self.zc = None
     self.zf = None
+    self.uum = None
+    self.vvm = None
+    self.wwm = None
+    self.uwm = None
+    self.visct = None
+    self.uwv = None
     with open(self.dir + "input.nml", 'r') as f:
       lines = f.readlines()
       for line in lines:
@@ -120,6 +126,12 @@ class CaNS(Case):
     self.vv = data[:len(data)//2, 6]
     self.ww = data[:len(data)//2, 7]
     self.uw = data[:len(data)//2, 8]
+    self.uum   = data[:len(data)//2, 23]
+    self.vvm   = data[:len(data)//2, 24]
+    self.wwm   = data[:len(data)//2, 25]
+    self.uwm   = data[:len(data)//2, 26]
+    self.visct = data[:len(data)//2, 27]
+    self.uwv   = data[:len(data)//2, 28]
 
   def error(self, ref):
     err = np.zeros(5)
@@ -162,14 +174,17 @@ class CaNS(Case):
   def elapsed_time(self):
     average_times = []
     with open(self.dir + 'output', 'r') as file:
-      for line in file:
-        if 'Avrg, min & max elapsed time:' in line:
-          next_line = next(file)
-          values = next_line.split()
-          avrg_time = float(values[0])
-          average_times.append(avrg_time)
-    overall_average = sum(average_times[1:-1]) / (len(average_times)-2)
-    return overall_average
+      file_contents = file.read()
+      if "Fim" in file_contents:
+        file.seek(0)
+        for line in file:
+          if 'Avrg, min & max elapsed time:' in line:
+            next_line = next(file)
+            values = next_line.split()
+            avrg_time = float(values[0])
+            average_times.append(avrg_time)
+        overall_average = sum(average_times[1:-1]) / (len(average_times)-2)
+        return overall_average
   
   def number_processes(self):
     with open(self.dir + 'job.sh', 'r') as file:

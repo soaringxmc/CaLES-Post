@@ -12,21 +12,20 @@ folders = [
 'CHA_RETAU5200_H0.1_SMAG_AR1_NX1024_NY384_NZ256/',
 'CHA_SMALL_RETAU5200_H0.1_SMAG_AR1_NX1024_NY384_NZ512/',
 ]
+
 dns = Moser('CHA_RETAU5200/')
-retau = dns.retau
-utau = 2.0*dns.retau/dns.reb
-plt.plot(dns.yf, dns.uv/utau**2, label='DNS', color='black')
+visc = 2.0/dns.reb
 for i in range(len(folders)):
   les = CaNS(folders[i])
   les.read_stats()
-  plt.plot(les.zf, les.uw/utau**2, label=f'$\Delta_z/h={les.dy:.3f}$')
+  plt.plot(les.zc, les.visct/visc, label=f'$\Delta_z/h={les.dy:.3f}$')
 
-plt.axvline(x=0.1, color='black', linestyle='--')
 plt.legend()
 plt.xlabel('$y/h$')
-plt.ylabel('$<uv>^+$')
-plt.xlim([ 0, 1])
-plt.ylim([-1, 0])
+plt.ylabel(r'$\nu_t/\nu$')
+plt.xlim([0, 1])
+plt.ylim([0, 14])
+# plt.yticks(np.arange(0, 0.81, 0.2))
 # plt.show()
-plt.savefig(f"cha_shear_RETAU5200_H0.1_SMAG_AR1.pdf", format='pdf', bbox_inches='tight')
+plt.savefig(f"cha_visct_RETAU5200_H0.1_SMAG_AR1.pdf", format='pdf', bbox_inches='tight')
 plt.close()

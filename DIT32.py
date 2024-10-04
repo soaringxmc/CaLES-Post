@@ -17,7 +17,7 @@ labels = [
 ]
 
 cbc = CBC('DNS/')
-plt.plot(cbc.kappa, cbc.energy0, label='CBC (unfiltered)', color='black')
+plt.plot(cbc.kappa, cbc.energy0, label='CBC', color='black')
 plt.plot(cbc.kappa, cbc.energy1, color='black')
 plt.plot(cbc.kappa, cbc.energy2, color='black')
 for i in range(len(folders)):

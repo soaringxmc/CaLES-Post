@@ -17,13 +17,13 @@ dns = Pirozzoli('DUC_RETAU1000/')
 dns.read_stats()
 retau = dns.retau
 utau = 2.0*dns.retau/dns.reb
-plt.plot(dns.centerline.y*retau, dns.centerline.u/utau, color='black', label='DNS')
+plt.plot(dns.diagonal.y*retau, dns.diagonal.u/utau, color='black', label='DNS')
 for i in range(len(folders)):
   les = Duct(folders[i])
   les.read_stats()
   retau = les.retau
   utau = 2.0*les.retau/les.reb
-  plt.plot(les.centerline.z*retau, les.centerline.u/utau, label=f'$N_x={les.nx}$')
+  plt.plot(les.diagonal.z*retau, les.diagonal.u/utau, label=f'$\Delta_z/h={les.dy:.3f}$')
 plt.axvline(x=0.1*dns.retau, color='black', linestyle='--')
 plt.xscale('log')
 plt.legend()
@@ -32,5 +32,5 @@ plt.ylabel('$U^*$')
 plt.xlim([1, 1100])
 plt.ylim([0, 25])
 # plt.show()
-plt.savefig(f"duc_loglaw_centerline_SMAG.pdf", format='pdf', bbox_inches='tight')
+plt.savefig(f"duc_loglaw_diagonal_SMAG.pdf", format='pdf', bbox_inches='tight')
 plt.close()
