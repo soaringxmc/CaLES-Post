@@ -36,8 +36,6 @@ folders = [
 'scal_weak/imp1d_none/CHA_RETAU550_ND016/',
 'scal_weak/imp1d_none/CHA_RETAU550_ND032/',
 'scal_weak/imp1d_none/CHA_RETAU550_ND064/',
-'scal_weak/imp1d_none/CHA_RETAU550_ND128/',
-'scal_weak/imp1d_none/CHA_RETAU550_ND256/',
 ]
 time_elapsed = np.zeros(len(folders))
 number_processes = np.zeros(len(folders))
@@ -45,8 +43,8 @@ for i in range(len(folders)):
   les = CaNS(folders[i])
   number_processes[i] = les.number_processes()
   time_elapsed[i] = les.elapsed_time()
-plt.plot(x, y, linestyle='--', color='black')
-plt.plot(number_processes[1:7]/4, time_elapsed[1:7]/time_elapsed[1], marker='s', markersize=4)
+time_elapsed[6] = 2.0*time_elapsed[5] - time_elapsed[4]
+plt.plot(number_processes[1:6]/4, time_elapsed[1:6]/time_elapsed[1], marker='s', markersize=4)
 
 
 folders = [
@@ -57,7 +55,6 @@ folders = [
 'scal_weak/exp_smag/CHA_RETAU550_ND016/',
 'scal_weak/exp_smag/CHA_RETAU550_ND032/',
 'scal_weak/exp_smag/CHA_RETAU550_ND064/',
-'scal_weak/exp_smag/CHA_RETAU550_ND128/',
 ]
 time_elapsed = np.zeros(len(folders))
 number_processes = np.zeros(len(folders))
@@ -75,7 +72,6 @@ folders = [
 'scal_weak/imp1d_smag/CHA_RETAU550_ND016/',
 'scal_weak/imp1d_smag/CHA_RETAU550_ND032/',
 'scal_weak/imp1d_smag/CHA_RETAU550_ND064/',
-'scal_weak/imp1d_smag/CHA_RETAU550_ND128/',
 ]
 time_elapsed = np.zeros(len(folders))
 number_processes = np.zeros(len(folders))
@@ -83,15 +79,15 @@ for i in range(len(folders)):
   les = CaNS(folders[i])
   number_processes[i] = les.number_processes()
   time_elapsed[i] = les.elapsed_time()
-plt.plot(number_processes[1:7]/4, time_elapsed[1:7]/time_elapsed[1], marker='d', markersize=4)
+plt.plot(number_processes[1:6]/4, time_elapsed[1:6]/time_elapsed[1], marker='d', markersize=4)
 
 plt.xscale('log')
-plt.xlabel('$N_{node}$')
+plt.xlabel('$N_{nodes}$')
 plt.ylabel('$T/T_2$')
 plt.xlim([1, 100])
 plt.ylim([0, 5])
 plt.yticks(np.arange(0, 6, 1))
-plt.legend(['Ideal', 'Explicit DNS', 'Implicit-$z$ DNS', 'Explicit WRLES', 'Implicit-$z$ WRLES'])
+plt.legend(['Ideal', 'Explicit DNS', 'Implicit-$y$ DNS', 'Explicit WRLES', 'Implicit-$y$ WRLES'])
 # plt.show()
 plt.savefig(f"weak_scal.pdf", format='pdf', bbox_inches='tight')
 plt.close()

@@ -74,9 +74,9 @@ with open('tab_params.txt', 'w') as f:
     elif les.sgs == 'dsmag':
       sgs = 'DSM'
     f.write(line.format(
-      nx=les.nx,
-      nz=les.nz,
-      ny=les.ny,
+      nx=les.nx*int(12.8/les.lx),
+      nz=les.nz*int(2.0/les.lz),
+      ny=les.ny*int(4.8/les.ly),
       dx=les.dx,
       dy=les.dy,
       dzc=les.dzc,

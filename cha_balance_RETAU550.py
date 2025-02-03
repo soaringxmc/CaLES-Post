@@ -22,10 +22,11 @@ for i in range(len(folders)):
   utau = 2.0*les.retau/les.reb
   stress = -les.uw - les.uwm - les.uwv
   color = f'C{i}'
-  plt.plot(les.zf, stress/utau**2, color=color)
-  plt.plot(les.zf, -les.uw /utau**2, color=color, label='_nolegend_')
-  plt.plot(les.zf, -les.uwm/utau**2, color=color, label='_nolegend_')
-  plt.plot(les.zf, -les.uwv/utau**2, color=color, label='_nolegend_')
+  plt.plot(les.zf, stress/utau**2, color=color, linestyle='-')
+  plt.plot(les.zf, (-les.uw-les.uwm) /utau**2, color=color, linestyle='--', label='_nolegend_')
+  plt.plot(les.zf, -les.uw /utau**2, color=color, linestyle='-.', label='_nolegend_')
+  plt.plot(les.zf, -les.uwm/utau**2, color=color, linestyle=':', label='_nolegend_')
+  plt.plot(les.zf, -les.uwv/utau**2, color=color, linestyle='-', label='_nolegend_')
 
 plt.legend(['$1-y/h$', 'SM', 'DSM'])
 plt.xlabel('$y/h$')

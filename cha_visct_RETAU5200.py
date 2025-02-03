@@ -18,8 +18,9 @@ visc = 2.0/dns.reb
 for i in range(len(folders)):
   les = CaNS(folders[i])
   les.read_stats()
-  plt.plot(les.zc, les.visct/visc, label=f'$\Delta_z/h={les.dy:.3f}$')
+  plt.plot(les.zc, les.visct/visc, label=f'$\Delta z/h={les.dy:.3f}$')
 
+plt.axvline(x=0.1, color='black', linestyle='--')
 plt.legend()
 plt.xlabel('$y/h$')
 plt.ylabel(r'$\nu_t/\nu$')

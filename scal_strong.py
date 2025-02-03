@@ -67,7 +67,6 @@ for i in range(len(folders)):
   time_elapsed[i] = les.elapsed_time()
 plt.plot(number_processes[1:7]/4, time_elapsed[1]/time_elapsed[1:7], marker='^', markersize=4)
 
-
 folders = [
 'scal_strong/imp1d_smag/CHA_RETAU550_ND001/',
 'scal_strong/imp1d_smag/CHA_RETAU550_ND002/',
@@ -89,11 +88,11 @@ plt.plot(number_processes[1:7]/4, time_elapsed[1]/time_elapsed[1:7], marker='d',
 
 plt.xscale('log')
 plt.yscale('log')
-plt.xlabel('$N_{node}$')
+plt.xlabel('$N_{nodes}$')
 plt.ylabel('$T_2/T$')
 plt.xlim([1, 100])
 plt.ylim([0.5, 100])
-plt.legend(['Ideal', 'Explicit DNS', 'Implicit-$z$ DNS', 'Explicit WRLES', 'Implicit-$z$ WRLES'])
+plt.legend(['Ideal', 'Explicit DNS', 'Implicit-$y$ DNS', 'Explicit WRLES', 'Implicit-$y$ WRLES'])
 # plt.show()
-plt.savefig(f"strong_scal.pdf", format='pdf', bbox_inches='tight')
+plt.savefig(f"strong_scal_ubuntu.pdf", format='pdf', bbox_inches='tight')
 plt.close()

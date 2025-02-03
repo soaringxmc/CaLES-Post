@@ -16,25 +16,25 @@ dns = Moser('CHA_RETAU550/')
 retau = dns.retau
 utau = 2.0*dns.retau/dns.reb
 
-plt.plot(dns.yf, dns.uu/utau**2, label='DNS', color='black')
+plt.plot(dns.yf, dns.uu/utau**2, label='DNS', color='black', linestyle='-')
 for i in range(len(folders)):
   les = CaNS(folders[i])
   les.read_stats()
-  plt.plot(les.zc, les.uu/utau**2, label=f'$\Delta_z^+={les.dy*retau:.1f}$')
+  plt.plot(les.zc, les.uu/utau**2, label=f'$\Delta z^+={les.dy*retau:.1f}$', linestyle='-')
 
 plt.gca().set_prop_cycle(None)
-plt.plot(dns.yf, dns.vv/utau**2, color='black')
+plt.plot(dns.yf, dns.vv/utau**2, color='black', linestyle='--')
 for i in range(len(folders)):
   les = CaNS(folders[i])
   les.read_stats()
-  plt.plot(les.zf, les.ww/utau**2)
+  plt.plot(les.zf, les.ww/utau**2, linestyle='--')
 
 plt.gca().set_prop_cycle(None)
-plt.plot(dns.yf, dns.ww/utau**2, color='black')
+plt.plot(dns.yf, dns.ww/utau**2, color='black', linestyle='-.')
 for i in range(len(folders)):
   les = CaNS(folders[i])
   les.read_stats()
-  plt.plot(les.zc, les.vv/utau**2)
+  plt.plot(les.zc, les.vv/utau**2, linestyle='-.')
 
 plt.legend()
 plt.xlabel('$y/h$')

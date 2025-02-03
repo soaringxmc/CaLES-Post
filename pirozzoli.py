@@ -33,17 +33,17 @@ class Pirozzoli(Case):
     nz = self.nz
     ny = self.ny
     utau = 2.0*self.retau/self.reb
-    self.z  = np.reshape(data[:, 0],(ny,nz),order='C')
-    self.y  = np.reshape(data[:, 1],(ny,nz),order='C')
-    self.u  = np.reshape(data[:, 2],(ny,nz),order='C')
-    self.v  = np.reshape(data[:, 4],(ny,nz),order='C')
-    self.w  = np.reshape(data[:, 5],(ny,nz),order='C')
-    self.uu = np.reshape(data[:, 6],(ny,nz),order='C')*utau**2
-    self.vv = np.reshape(data[:, 7],(ny,nz),order='C')*utau**2
-    self.ww = np.reshape(data[:, 8],(ny,nz),order='C')*utau**2
-    self.uv = np.reshape(data[:, 9],(ny,nz),order='C')*utau**2
-    self.uw = np.reshape(data[:,10],(ny,nz),order='C')*utau**2
-    self.vw = np.reshape(data[:,11],(ny,nz),order='C')*utau**2
+    self.z  = np.reshape(data[:, 0],(nz,ny),order='C')
+    self.y  = np.reshape(data[:, 1],(nz,ny),order='C')
+    self.u  = np.reshape(data[:, 2],(nz,ny),order='C')
+    self.v  = np.reshape(data[:, 4],(nz,ny),order='C')
+    self.w  = np.reshape(data[:, 5],(nz,ny),order='C')
+    self.uu = np.reshape(data[:, 6],(nz,ny),order='C')*utau**2
+    self.vv = np.reshape(data[:, 7],(nz,ny),order='C')*utau**2
+    self.ww = np.reshape(data[:, 8],(nz,ny),order='C')*utau**2
+    self.uv = np.reshape(data[:, 9],(nz,ny),order='C')*utau**2
+    self.uw = np.reshape(data[:,10],(nz,ny),order='C')*utau**2
+    self.vw = np.reshape(data[:,11],(nz,ny),order='C')*utau**2
     data = np.loadtxt(self.dir + "stats-single-point-duct-centerline.out", skiprows=0)
     self.centerline.y  = data[:, 1]
     self.centerline.u  = data[:, 2]

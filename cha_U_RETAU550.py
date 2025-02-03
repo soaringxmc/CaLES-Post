@@ -20,7 +20,7 @@ plt.plot(dns.yf, dns.u/utau, label='DNS', color='black')
 for i in range(len(folders)):
   les = CaNS(folders[i])
   les.read_stats()
-  plt.plot(les.zc*retau, les.u/utau, label=f'$\Delta_z^+={les.dy*retau:.1f}$')
+  plt.plot(les.zc*retau, les.u/utau, label=f'$\Delta z^+={les.dy*retau:.1f}$')
 
 plt.xscale('log')
 plt.legend()
